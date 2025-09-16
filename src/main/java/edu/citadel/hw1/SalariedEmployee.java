@@ -7,10 +7,6 @@ import lombok.Getter;
 /**
  * Represents a salaried employee with a fixed annual salary.
  * Extends Employee to include annual salary, from which monthly pay is derived by dividing by 12.
- * Suitable for full-time staff with consistent compensation regardless of hours worked.
- * Design rationale: Salaried model simplifies payroll for predictable income; contrasts with HourlyEmployee for flexible staffing needs.
- * Fields are immutable post-construction to ensure salary integrity (e.g., prevents unauthorized adjustments).
- * Educational note for juniors: Division by 12 assumes a 12-month year; in real payroll, account for fiscal year variations or bonuses separately.
  *
  * @see Employee
  * @see HourlyEmployee
@@ -79,10 +75,10 @@ public class SalariedEmployee extends Employee {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
+        // First check base class equality (name and hireDate)
+        if (!super.equals(obj)) return false;
         SalariedEmployee that = (SalariedEmployee) obj;
-        return Double.compare(that.annualSalary, annualSalary) == 0 &&
-               Objects.equals(getName(), that.getName()) &&
-               Objects.equals(getHireDate(), that.getHireDate());
+        return Double.compare(that.annualSalary, annualSalary) == 0;
     }
 
     /**
@@ -96,6 +92,6 @@ public class SalariedEmployee extends Employee {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getHireDate(), annualSalary);
+        return Objects.hash(super.hashCode(), annualSalary);
     }
 }

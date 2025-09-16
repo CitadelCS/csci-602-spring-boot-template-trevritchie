@@ -8,9 +8,6 @@ import lombok.Getter;
  * Represents an hourly-paid employee.
  * Extends Employee to include wage rate and hours worked per month.
  * Monthly pay is calculated as wageRate * hoursWorked, assuming hoursWorked represents the standard monthly hours (e.g., 160 for full-time).
- * Design rationale: Hourly employees have variable pay based on time worked; this class encapsulates that variability while inheriting common attributes.
- * Fields are immutable post-construction to maintain data consistency (e.g., preventing retroactive changes to historical pay calculations).
- * Educational note for juniors: In real systems, consider validating hoursWorked (e.g., 0 < hours <= 173.33 for a month) and wageRate (>0); here, we assume valid inputs for simplicity.
  *
  * @see Employee
  */
@@ -89,12 +86,12 @@ public class HourlyEmployee extends Employee {
         if (this == obj) return true;
         // Null or wrong type check
         if (obj == null || getClass() != obj.getClass()) return false;
+        // First check base class equality (name and hireDate)
+        if (!super.equals(obj)) return false;
         HourlyEmployee that = (HourlyEmployee) obj;
-        // Field comparisons: doubles use Double.compare for exact match, others use equals
+        // Field comparisons for subclass-specific fields: doubles use Double.compare for exact match
         return Double.compare(that.wageRate, wageRate) == 0 &&
-               Double.compare(that.hoursWorked, hoursWorked) == 0 &&
-               getName().equals(that.getName()) &&
-               getHireDate().equals(that.getHireDate());
+               Double.compare(that.hoursWorked, hoursWorked) == 0;
     }
 
     /**
@@ -110,13 +107,10 @@ public class HourlyEmployee extends Employee {
      */
     @Override
     public int hashCode() {
-        int result;
+        int result = super.hashCode(); // Start with base class hash (name and hireDate)
         long temp;
-        result = getName().hashCode();
-        result = 31 * result + getHireDate().hashCode();
         // Handle wageRate: convert to long bits for consistent hashing
-        temp = Double.doubleToLongBits(wageRate);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + Double.hashCode(wageRate);
         // Handle hoursWorked similarly
         temp = Double.doubleToLongBits(hoursWorked);
         result = 31 * result + (int) (temp ^ (temp >>> 32));

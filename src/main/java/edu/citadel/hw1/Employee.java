@@ -6,14 +6,10 @@ import lombok.Getter;
 
 /**
  * Abstract base class for all employee types in the organization.
- * Encapsulates shared attributes (name, hire date) and defines the interface for pay calculation and comparison.
  * Implements Comparable<Employee> to enable sorting by monthly pay, supporting use cases like payroll reports or compensation analysis.
- * Design rationale: Placing Comparable in the base class allows polymorphic sorting across all employee types without requiring client code to handle subtypes separately.
- * Fields are private with getter-only access (no setters), enforcing immutability post-construction. This design choice promotes data integrity, thread-safety, and easier testing/debugging.
- * Educational note for juniors: Immutability prevents unexpected state changes, reducing bugs in shared or concurrent code; always consider if mutability is truly needed.
  */
 @Getter
-public abstract class Employee implements Comparable<Employee> {
+public class Employee implements Comparable<Employee> {
     /**
      * The full name of the employee.
      * Immutable after construction.
@@ -43,12 +39,16 @@ public abstract class Employee implements Comparable<Employee> {
 
     /**
      * Computes and returns the monthly pay for this employee.
-     * Abstract to force subclasses to implement type-specific logic (e.g., hourly vs. salaried).
+     * Base implementation returns 0.0; subclasses should override with type-specific logic (e.g., hourly vs. salaried).
      * Ensures consistent pay calculation interface across the hierarchy.
+     * Design rationale: Concrete base implementation allows for polymorphic usage while enabling subclass customization.
+     * Educational note: Default implementation provides fallback behavior; subclasses inherit and can call super.getMonthlyPay() if needed.
      *
-     * @return the monthly pay in USD as a double
+     * @return the monthly pay in USD as a double (0.0 for base Employee)
      */
-    public abstract double getMonthlyPay();
+    public double getMonthlyPay() {
+        return 0.0;
+    }
 
     /**
      * Compares this employee to another for ordering purposes, based on monthly pay.
@@ -65,5 +65,42 @@ public abstract class Employee implements Comparable<Employee> {
     @Override
     public int compareTo(Employee other) {
         return Double.compare(getMonthlyPay(), other.getMonthlyPay());
+    }
+
+    /**
+     * Compares this Employee to another object for equality.
+     * Returns true if the other is an Employee with identical name and hireDate.
+     * Base implementation for subclasses to extend via super.equals().
+     * Uses Objects.equals for null-safe string and date comparison.
+     * Design rationale: Base class equality focuses on common fields; subclasses add their specific fields.
+     * Educational note: Using getClass() ensures strict type checking; subclasses should call super.equals() first.
+     *
+     * @param obj the object to compare (may be null)
+     * @return true if equal based on name and hireDate
+     */
+    @Override
+    public boolean equals(Object obj) {
+        // Reference equality check
+        if (this == obj) return true;
+        // Null or wrong type check
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employee that = (Employee) obj;
+        // Field comparisons for base class fields
+        return java.util.Objects.equals(name, that.name) &&
+               java.util.Objects.equals(hireDate, that.hireDate);
+    }
+
+    /**
+     * Generates a hash code based on name and hireDate.
+     * Base implementation for subclasses to extend.
+     * Uses Objects.hash for simplicity and null-safety.
+     * Design rationale: Base hash includes common fields; subclasses should incorporate super.hashCode().
+     * Educational note: Consistent with equals - same base fields yield same base hash.
+     *
+     * @return the hash code for base Employee fields
+     */
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(name, hireDate);
     }
 }
