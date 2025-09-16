@@ -1,4 +1,4 @@
-package hw1;
+package edu.citadel.hw1;
 
 import java.lang.Comparable;
 import java.time.LocalDate;

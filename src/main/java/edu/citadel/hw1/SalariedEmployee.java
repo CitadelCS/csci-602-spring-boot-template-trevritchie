@@ -1,4 +1,4 @@
-package hw1;
+package edu.citadel.hw1;
 
 import java.time.LocalDate;
 import java.util.Objects;

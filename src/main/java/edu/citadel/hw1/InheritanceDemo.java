@@ -1,4 +1,4 @@
-package hw1;
+package edu.citadel.hw1;
 
 import java.util.*;
 import java.time.LocalDate;
@@ -13,7 +13,6 @@ import java.time.LocalDate;
  * Educational note for juniors: Polymorphism allows treating subclasses uniformly; sorting works seamlessly due to base class Comparable.
  * No code changes from original; comments added for clarity. Output should match sample: unsorted list, sorted list, individual pays, total.
  *
- * @author Senior Engineer
  * @version 1.0
  * @see Employee
  * @see HourlyEmployee
