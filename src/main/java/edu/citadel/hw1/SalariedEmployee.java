@@ -37,8 +37,6 @@ public class SalariedEmployee extends Employee {
     /**
      * Calculates the monthly pay by dividing annual salary by 12.
      * Uses 12.0 (double) for precise division; integer division would truncate.
-     * Design rationale: Monthly pay provides consistent view for comparison/sorting with hourly employees.
-     * Educational note: Floating-point division is appropriate here; for exact financials, consider BigDecimal to avoid rounding errors over time.
      *
      * @return the monthly pay in USD
      */
@@ -62,11 +60,6 @@ public class SalariedEmployee extends Employee {
      * Compares this SalariedEmployee to another object for equality.
      * Returns true if the other is a SalariedEmployee with identical name, hireDate, and annualSalary.
      * Uses Objects.equals for strings/dates (null-safe) and Double.compare == 0 for exact salary match.
-     * Design rationale: Class-specific equality ensures type safety; leverages Objects utility for robustness.
-     * Educational note for juniors: Objects.equals handles nulls gracefully; Double.compare avoids direct == on doubles due to precision issues, but ==0 checks for logical equality in set values.
-     * Inline: Reference equality first.
-     * Null/type check next.
-     * Field comparisons: salary via compare, others via Objects.equals.
      *
      * @param obj the object to compare (may be null)
      * @return true if equal
@@ -84,9 +77,6 @@ public class SalariedEmployee extends Employee {
     /**
      * Generates a hash code based on all fields.
      * Consistent with equals: uses Objects.hash for simplicity and null-safety.
-     * Includes inherited fields (name, hireDate) and class-specific (annualSalary).
-     * Design rationale: Objects.hash distributes well; automatic handling of doubles.
-     * Educational note: Prefer Objects.hash over manual computation for maintainability; it uses 31 multiplier internally.
      *
      * @return the hash code
      */

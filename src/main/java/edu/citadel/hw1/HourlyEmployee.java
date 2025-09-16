@@ -46,8 +46,6 @@ public class HourlyEmployee extends Employee {
     /**
      * Calculates the monthly pay by multiplying wage rate by hours worked.
      * Simple linear calculation; does not account for overtime (e.g., >40 hours/week) for this basic model.
-     * Design rationale: Keeps calculation straightforward; extend with overtime logic if needed in subclasses or via composition.
-     * Educational note: Double multiplication is exact for this use case, but monitor for precision loss in larger systems (e.g., use BigDecimal for financial apps).
      *
      * @return the monthly pay in USD
      */
@@ -70,12 +68,6 @@ public class HourlyEmployee extends Employee {
     /**
      * Compares this HourlyEmployee to another object for equality.
      * Returns true if the other is a HourlyEmployee with identical name, hireDate, wageRate, and hoursWorked.
-     * Uses exact double comparison via Double.compare == 0, suitable for business identifiers where values are set precisely (not measured).
-     * Design rationale: Class-specific equality (not superclass) to ensure type safety; avoids inheritance pitfalls like Liskov Substitution for equals.
-     * Educational note for juniors: Overriding equals requires overriding hashCode; use getClass() check to prevent instanceof issues with subclasses.
-     * Inline: First, check reference equality for efficiency.
-     * Then, null/type check to avoid NPE/ClassCastException.
-     * Finally, compare all fields: strings/dates via equals (handles nulls safely), doubles via Double.compare for total order without overflow.
      *
      * @param obj the object to compare (may be null)
      * @return true if equal
@@ -97,11 +89,6 @@ public class HourlyEmployee extends Employee {
     /**
      * Generates a hash code based on all fields.
      * Consistent with equals: same fields yield same hash.
-     * Uses 31 as multiplier (prime, good distribution) and doubleToLongBits for doubles to handle NaN/-0.0 correctly.
-     * Design rationale: Inherited fields (name, hireDate) included; class-specific fields added for completeness.
-     * Educational note: Bitwise XOR on long bits ensures 32-bit int hash; avoids floating-point inconsistencies.
-     * Inline: Start with name hash, multiply by 31 and add hireDate.
-     * Convert doubles to long bits, XOR high/low 32 bits, then incorporate similarly.
      *
      * @return the hash code
      */

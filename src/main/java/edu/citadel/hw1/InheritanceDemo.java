@@ -7,11 +7,6 @@ import java.time.LocalDate;
  * Demonstration of inheritance and polymorphism using Employee hierarchy.
  * Creates instances of HourlyEmployee and SalariedEmployee, stores in a polymorphic ArrayList<Employee>,
  * sorts by monthly pay using the inherited Comparable implementation, and prints details.
- * Illustrates key OOP concepts: abstraction (Employee base), extension (subclasses), overriding (toString, getMonthlyPay),
- * and runtime polymorphism (calling methods on base references).
- * Design rationale: Uses ArrayList for flexibility; Collections.sort leverages Comparable for pay-based ordering without custom comparators.
- * Educational note for juniors: Polymorphism allows treating subclasses uniformly; sorting works seamlessly due to base class Comparable.
- * No code changes from original; comments added for clarity. Output should match sample: unsorted list, sorted list, individual pays, total.
  *
  * @version 1.0
  * @see Employee
@@ -27,9 +22,6 @@ public class InheritanceDemo {
      * 3. Sort using Collections.sort(), which calls compareTo() (pay-based).
      * 4. Print sorted list.
      * 5. Calculate and print monthly pays using overridden getMonthlyPay(), sum total.
-     * Rationale: Demonstrates inheritance benefits - no need for type checks; base methods dispatch correctly.
-     * Inline comments explain each step for educational purposes.
-     * Assumes Java 8+ for LocalDate; no input validation for demo simplicity.
      *
      * @param args command-line arguments (unused)
      */
