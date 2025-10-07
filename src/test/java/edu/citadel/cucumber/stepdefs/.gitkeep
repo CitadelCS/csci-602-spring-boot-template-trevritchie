@@ -1,0 +1,2 @@
+# This file ensures the stepdefs directory is tracked by git
+# Step definition classes will be placed in this directory
