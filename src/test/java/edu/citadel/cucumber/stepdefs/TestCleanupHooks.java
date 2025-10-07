@@ -25,17 +25,11 @@ public class TestCleanupHooks {
     }
 
     @After
-    @Transactional
     public void afterScenario() {
-        // Clean up database after each scenario to prevent state leakage
-        try {
-            accountRepository.deleteAll();
-        } catch (Exception e) {
-            // Log but don't fail the test if cleanup fails
-            System.err.println("Warning: Failed to clean up database after scenario: " + e.getMessage());
-        }
-        
         // Clear the test context after each scenario
         testContext.clear();
+
+        // Note: We don't clean up the database to avoid affecting production data
+        // Tests use unique usernames to prevent conflicts with existing data
     }
 }
