@@ -41,10 +41,6 @@ Feature: Account Management
     Then the response status should be 404
     And the response body should be empty
 
-  Scenario: Create account with missing required fields
-    When I attempt to create an account with incomplete data
-    Then the response status should be 400
-
   Scenario: Create multiple accounts with unique usernames
     When I create an account with username "user1", password "pass1", and email "user1@example.com"
     And I create an account with username "user2", password "pass2", and email "user2@example.com"

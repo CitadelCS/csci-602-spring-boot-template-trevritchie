@@ -30,37 +30,15 @@ public class AccountEndpoints {
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Account> createAccount(@RequestBody AccountRequestBody accountRequestBody) {
-    
-    // Validate required fields
-    if (accountRequestBody == null) {
-      return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-    }
-    
-    if (accountRequestBody.getUsername() == null || accountRequestBody.getUsername().trim().isEmpty()) {
-      return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-    }
-    
-    if (accountRequestBody.getPassword() == null || accountRequestBody.getPassword().trim().isEmpty()) {
-      return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-    }
-    
-    if (accountRequestBody.getEmail() == null || accountRequestBody.getEmail().trim().isEmpty()) {
-      return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-    }
 
-    try {
-      Account account = new Account();
-      account.setEmail(accountRequestBody.getEmail());
-      account.setPassword(accountRequestBody.getPassword());
-      account.setUsername(accountRequestBody.getUsername());
+    Account account = new Account();
+    account.setEmail(accountRequestBody.getEmail());
+    account.setPassword(accountRequestBody.getPassword());
+    account.setUsername(accountRequestBody.getUsername());
 
-      Account rtnAccount = accountRepository.save(account);
+    Account rtnAccount = accountRepository.save(account);
 
-      return new ResponseEntity<>(rtnAccount, HttpStatus.CREATED);
-    } catch (Exception e) {
-      // Handle database constraint violations or other errors
-      return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-    }
+    return new ResponseEntity<>(rtnAccount, HttpStatus.CREATED);
   }
 
   @GetMapping(value = "/username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)

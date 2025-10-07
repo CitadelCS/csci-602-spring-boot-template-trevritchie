@@ -100,24 +100,6 @@ public class AccountManagementStepDefs {
         testContext.setAccountResponse(response);
     }
 
-    @When("I attempt to create an account with incomplete data")
-    public void iAttemptToCreateAnAccountWithIncompleteData() {
-        // Create request with missing required fields
-        AccountRequestBody requestBody = new AccountRequestBody();
-        requestBody.setUsername("testuser_" + System.currentTimeMillis());
-        // Missing password and email
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<AccountRequestBody> request = new HttpEntity<>(requestBody, headers);
-
-        String url = "http://localhost:" + port + "/account";
-
-        // Use exchange method to handle error responses properly
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-        testContext.setStringResponse(response);
-    }
-
     @Then("the response should contain the created account details")
     public void theResponseShouldContainTheCreatedAccountDetails() {
         ResponseEntity<Account> response = testContext.getAccountResponse();
