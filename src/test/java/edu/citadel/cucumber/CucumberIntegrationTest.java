@@ -11,5 +11,5 @@ import org.junit.platform.suite.api.Suite;
 @SelectClasspathResource("features")
 @ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "edu.citadel.cucumber")
 @ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "pretty")
-public class CucumberTestRunner {
+public class CucumberIntegrationTest {
 }
