@@ -1,12 +1,9 @@
 package edu.citadel.cucumber;
 
-import edu.citadel.main.RestApiApplication;
-import io.cucumber.spring.CucumberContextConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ActiveProfiles;
 
-@CucumberContextConfiguration
-@SpringBootTest(classes = RestApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Configuration
 @ActiveProfiles("test")
 public class CucumberSpringConfiguration {
 }
